@@ -1,12 +1,20 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient } = require('mongodb').MongoClient;
+var express = require('express');
+var router = express.Router();
+var mongoose = require('mongoose');
 
-async function main(){
-const uri = "mongodb+srv://ascender50:<Boss5234#$>@refractlabsresumeprojec.wspxn.mongodb.net/RefractLabsResumeProject?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-try {
-    await client.connect();
-} finally{
-    await client.close();
-}
-}
-main().catch(console.error);
+const uri = 'mongodb+srv://ascender50:jKrbP14ZIZJOmNy4' +'@refractlabsresumeprojec.wspxn.mongodb.net/BicycleShop?' + 'retryWrites=true&w=majority';
+ 
+const db = (uri);
+mongoose.Promise = global.Promise;
+ 
+mongoose.connect(db, { useNewUrlParser : true,
+useUnifiedTopology: true }, function(error) {
+    if (error) {
+        console.log("Error!" + error);
+    }
+});
+ 
+module.exports = router;
+
+

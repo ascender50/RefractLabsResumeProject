@@ -1,22 +1,15 @@
 const express = require("express");
-const cors = require("cors");
+const body_parser = require("body-parser");
+const api = require('./config/db.config');
+
 
 const app = express();
+const port = 4000;
 
-var corsOptions = {
-    origin: "http://localhost:8081"
-};
-
-app.use(cors(corsOptions));
-
-app.use(express.json());
-app.use(express.urlencoded({extended:true}));
-
-app.get("/", (req,res) => {
-res.json({message: "React App"})
-}
-);
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}.`);
+app.listen(port, () => {
+    console.log(`Server listening at ${port}`);
 });
+app.use(body_parser.urlencoded({extended:true}));
+app.use(body_parser.json());
+
+app.use('./api', api);
