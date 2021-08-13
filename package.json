@@ -4,7 +4,7 @@
   "description": "Node.JS, Express, and MongoDB project for the recruiting process for RefractLabs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",

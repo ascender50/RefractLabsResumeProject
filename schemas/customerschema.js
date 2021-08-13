@@ -1,11 +1,19 @@
 var mongoose=require('mongoose');
  
 var CustomerSchema = new mongoose.Schema({
-    customerID:Number,
-    customerName:String,
-    emailAddress:String,
-    phoneNumber:Number,
+    customerName:{
+        type: String,
+        required: true,
+    },
+    emailAddress:{
+        type: String,
+        required: true,
+    },
+    phoneNumber:{
+        type:String,
+        required:true,
+    },
 }, {timestamps:true});
  
-module.exports = mongoose.model(
-    'customer', CustomerSchema, 'Customers');
+var customerData=mongoose.model('customerData',CustomerSchema);
+module.exports = customerData;

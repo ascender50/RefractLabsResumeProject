@@ -1,12 +1,23 @@
 var mongoose=require('mongoose');
  
 var InventorySchema = new mongoose.Schema({
-    inventoryID:Number,
-    itemName:String,
-    itemCategory:String,
-    listPrice:Number,
-    numinStock: Number,
+    itemName:{
+        type:String,
+required:true,
+    },
+    itemCategory:{
+        type:String,
+required:true,
+    },
+    listPrice:{
+        type:Number,
+required:true,
+    },
+    numinStock:{
+type:Number,
+required:true,
+    } 
 }, {timestamps:true});
  
-module.exports = mongoose.model(
-    'inventory', InventorySchema, 'Inventories');
+var inventoryData=mongoose.model('inventoryData',InventorySchema);
+module.exports = inventoryData;

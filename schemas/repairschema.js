@@ -1,13 +1,25 @@
 var mongoose=require('mongoose');
  
 var RepairSchema = new mongoose.Schema({
-    repairID:Number,
-    customerID:Number,
-    scheduledDate:Date,
-    itemCategory:String,
-    issueDescription:String,
-    repairNotes: String,
+    customerID:{
+        type:Number,
+        required:true,
+    },
+    scheduledDate:{
+        type:Date,
+        required:true,
+    },
+    itemCategory:{
+        type:String,
+        required:true,
+    },
+    issueDescription:{
+        type:String,
+        required:true,
+    },
+    repairNotes:{ String,
+    },
 }, {timestamps:true});
  
-module.exports = mongoose.model(
-    'repair', RepairSchema, 'repairs');
+var repairData=mongoose.model('repairData',RepairSchema);
+module.exports = repairData;
