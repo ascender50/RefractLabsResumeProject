@@ -28,39 +28,37 @@ const createInventory =  async (req, res) => {
     }
 }
 const getspecInventory = async (req,res) => {
-    const id = req.params.id;
+    
     try {
-        const inv = await Inventory.findOne({id: id});
+        const inv = await Inventory.findById(req.params.id);
         res.status(200).json(inv);
     } catch(error) {
         res.status(404).json({ message: error.message});
     }
 }
 const updateInventory = async (req, res) => {
-    const id= req.params.id;
     try{
-        await Inventory.findOneAndUpdate({
-            id: id,
-        },
+        await Inventory.findByIdAndUpdate(
+            req.params.id
+        ,
         {   
         itemName: req.body.itemName,
         itemCategory: req.body.itemCategory,
         listPrice: req.body.listPrice,
         numinStock: req.body.numinStock,
-        }
+        },
+        {useFindAndModify : true, new:true}
         )
-        res.status(202).json({id: id});
+        res.status(202).json({message: `Updated User`});
 
     } catch (error) {
         res.status(401).json({message: error.message});
     }
 }
 const deleteInventory = async (req, res) => {
-    const id= req.params.id;
-
     try {
-        await Inventory.findOneAndRemove({id: id});
-        res.status(203).json({id:id});
+        await Inventory.findByIdAndDelete(req.params.id);
+        res.status(203).json({message: `Deleted User`});
 
     }catch(error) {
         res.status(402).json({message: error.message});

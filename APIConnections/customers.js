@@ -27,38 +27,36 @@ const createCustomer =  async (req, res) => {
     }
 }
 const getspecCustomer = async (req,res) => {
-    const id = req.params.id;
     try {
-        const cust = await Customer.findOne({id: id});
+        const cust = await Customer.findById(req.params.id);
         res.status(200).json(cust);
     } catch(error) {
         res.status(404).json({ message: error.message});
     }
 }
 const updateCustomer = async (req, res) => {
-    const id= req.params.id;
+   
     try{
-        await Customer.findOneAndUpdate({
-            id: id,
-        },
+        await Customer.findByIdAndUpdate(
+            req.params.id
+        ,
         {   
         customerName: req.body.customerName,
         emailAddress: req.body.emailAddress,
         phoneNumber: req.body.phoneNumber,
-        }
+        },
+        {useFindAndModify : true, new:true}
         )
-        res.status(202).json({id: id});
+        res.status(202).json({message: `User Updated`});
 
     } catch (error) {
         res.status(401).json({message: error.message});
     }
 }
 const deleteCustomer = async (req, res) => {
-    const id= req.params.id;
-
     try {
-        await Customer.findOneAndRemove({id: id});
-        res.status(203).json({id:id});
+        await Customer.findByIdAndDelete(req.params.id);
+        res.status(203).json({message: `Deleted this user`});
 
     }catch(error) {
         res.status(402).json({message: error.message});

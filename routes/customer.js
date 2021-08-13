@@ -6,7 +6,7 @@ const router = express.Router();
 router.post('/', customer.createCustomer);
 router.get('/', customer.getCustomer);
 router.get('/:id', customer.getspecCustomer);
-router.patch('/:id', customer.updateCustomer);
+router.put('/:id', customer.updateCustomer);
 router.delete('/:id', customer.deleteCustomer);
 
 

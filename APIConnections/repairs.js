@@ -29,40 +29,35 @@ const createRepair =  async (req, res) => {
     }
 }
 const getSpecRepairs = async (req,res) => {
-    const id = req.params.id;
     try {
-        const rep = await Repair.findOne({id: id});
+        const rep = await Repair.findById(req.params.id);
         res.status(200).json(rep);
     } catch(error) {
         res.status(404).json({ message: error.message});
     }
 }
 const updateRepairs = async (req, res) => {
-    const id= req.params.id;
     try{
-        await Repair.findOneAndUpdate({
-            id: id,
-        },
+        await Repair.findByIdAndUpdate(req.params.id,
         {   
             customerID: req.body.customerID,
             scheduledDate:req.body.scheduledDate,
             itemCategory: req.body.itemCategory,
             issueDescription: req.body.issueDescription,
             repairNotes: req.body.repairNotes,
-        }
+        },
+        {useFindAndModify : true, new:true}
         )
-        res.status(202).json({id: id});
+        res.status(202).json({message: `Updated User`});
 
     } catch (error) {
         res.status(401).json({message: error.message});
     }
 }
 const deleteRepair = async (req, res) => {
-    const id= req.params.id;
-
     try {
-        await Repair.findOneAndRemove({id: id});
-        res.status(203).json({id:id});
+        await Repair.findByIdAndDelete(req.params.id);
+        res.status(203).json({message: `Deleted User`});
 
     }catch(error) {
         res.status(402).json({message: error.message});
